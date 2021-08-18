@@ -1,6 +1,6 @@
 //#region is even and odd
 function isEven(num) {
-    if (num % 2 === 0) {
+    if (num % 2 == 0) {
         return true;
     } else {
         return false;
@@ -8,7 +8,7 @@ function isEven(num) {
 }
 
 function isOdd(num) {
-    if (num % 3 === 0) {
+    if (num % 3 == 0) {
         return true;
     } else {
         return false;
@@ -58,33 +58,52 @@ var Data = [] // storing the data to be used in the chart
 
 var max_color = 255; // choosing random colors everytime the page reloads
 
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        // labels: [num], // changes the more the longer it is
-        datasets: [{
-            label: '3 x + 1',
-            data: [Data],
-            backgroundColor: [
-                `rgba(${random(max_color)}, ${random(max_color)}, ${random(max_color)}, ${random(max_color)})`,
-            ],
-            borderColor: [
-                `rgba(${random(max_color)}, ${random(max_color)}, ${random(max_color)}, ${random(max_color)})`,
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            },
-            x: {
-                beginAtZero: true
+// returning the information stored the Data array
+function getData() {
+    try {
+        for (var i = 0; i < Data.length; i++) {
+            return parseInt(data[i]); // returning the data
+        }
+    } catch (error) {
+        console.log(`Error getting data: ${error}`);
+    }
+}
+
+try {
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            // labels: [num], // changes the more the longer it is
+            datasets: [{
+                label: '3 x + 1',
+                data: [
+                    getData()
+                ],
+                backgroundColor: [
+                    `rgba(${random(max_color)}, ${random(max_color)}, ${random(max_color)}, ${random(max_color)})`,
+                ],
+                borderColor: [
+                    `rgba(${random(max_color)}, ${random(max_color)}, ${random(max_color)}, ${random(max_color)})`,
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    beginAtZero: true
+                }
             }
         }
-    }
-});
+    });
+} catch (error) {
+    alert("A bug with a chart api\nClick ok to refresh the screen");
+    console.log(`${error}`);
+    refresh(); // refreshing the window if there's an error
+}
 
 /**
  * running the 3x + 1 problem
@@ -92,12 +111,13 @@ var myChart = new Chart(ctx, {
 function running() {
     try {
         var num_chosen = toInt(
-            random(500)
+            $("#number-choose").val()
+            // random(500)
         ); // getting the value
-        // $("#number-choose").val()
-            
+
         var new_html_show = $("#new");
         var old_html_show = $("#old");
+        var numChosen_html_show = $("#num-chosen");
 
         const final = 1; // set how many times to run 
 
@@ -110,91 +130,79 @@ function running() {
             "new": 0
         }
 
-        console.log(`Number chosen by the computer ${num_chosen}`)
+        numChosen_html_show.html(num_chosen);
+        console.log(`Number chosen by the computer ${num_chosen}`);
+
+        // if the number does not equal 1 it'll continue the loop
+        while (data_Track.new != final || data_Track.old != final) {
 
 
-        if (Number.isInteger(num_chosen)) {
+            // if there's no new number saved
+            if (data_Track.new == 0) {
 
-            // run while the new number or old number is not equal to 1
-            while (data_Track.old != final || data_Track.new != final) {
-
-                // set the first set
+                // if the number chosen is true 
                 if (iseven == true) {
-                    var addEven = even(data_Track.old); // dividing by 2 and setting it as old to start
-                    Data.push(addEven); // add to the chart
-                    data_Track.old = addEven // setting the new begining
+                    old_html_show.html(data_Track.old); // showing the old number
+                    console.log(`number chosen before a new number is saved ${data_Track.old}`);
+                    var NEW = even(data_Track.old); // dividing by 2
+                    data_Track.new = NEW; // keeping track of the new num
+
+                    new_html_show.html(NEW); // showing the number being saved
+                    console.log(`new number saved ${data_Track.new}`);
+                    Data.push(NEW);
+
+                    // if the number chosen is odd
                 } else if (isodd == true) {
-                    var addOdd = odd(data_Track.old); // multiplying 3 + 1 and setting it as old to start
-                    Data.push(addOdd); // add to the chart
-                    data_Track.old = addOdd; // setting the new begining
+                    old_html_show.html(data_Track.old);
+                    console.log(`number chosen before a new number is saved ${data_Track.old}`);
+                    var new_odd = odd(data_Track.old); // dividing by 2
+                    data_Track.new = new_odd;
+
+                    new_html_show.html(new_odd);
+                    console.log(`new number saved ${data_Track.new}`);
+                    Data.push(new_odd);
+
+
+                } else {
+                    numChosen_html_show.html("Number neither even nor odd\nOdd bug but it doesn't seem to show");
                 }
-                // else{
-                //     console.log("can't begin cause number neither even or odd which is weird");
-                // }
+
+            } else {
+
+                // if the number chosen is true 
+                if (iseven == true) {
+                    new_html_show.html(data_Track.new); // showing the old number
+                    console.log(`after a new number is saved ${data_Track.new}`);
+                    var NEW = even(data_Track.new); // dividing by 2
+                    data_Track.new = NEW; // keeping track of the new num
+
+                    new_html_show.html(NEW); // showing the number being saved
+                    console.log(`after a new number is saved ${data_Track.new}`);
+                    Data.push(NEW);
 
 
+                    // if the number chosen is odd
+                } else if (isodd == true) {
+                    new_html_show.html(data_Track.new);
+                    console.log(`after a new number is saved ${data_Track.new}`);
+                    var new_odd = odd(data_Track.new); // dividing by 2
+                    data_Track.new = new_odd;
 
-                // if no new data is set
-                if (data_Track.new == 0) {
-                    if (isEven(data_Track.old) == true) {
-                        old_html_show.html(data_Track.old); // printing out the old on a DOM 
-                        console.log(`old before setting new: ${data_Track.old}`) // printing out to the console to see
+                    new_html_show.html(new_odd);
+                    console.log(`after a new number is saved ${data_Track.new}`);
+                    Data.push(new_odd);
 
-                        var New = even(data_Track.old); // getting the previous
-                        console.log(`new data being saved${New}`) // printing out to the console to see
 
-                        data_Track.new = New; // keeping track of the new data
-                        Data.push(New); // add to array to show to screen
-                        new_html_show.html(New);
-
-                    } else if (isOdd(data_Track.old) == true) {
-                        old_html_show.html(data_Track.old); // printing out the old on a DOM 
-                        console.log(`old before setting new: ${data_Track.old}`) // printing out to the console to see
-
-                        var New = odd(data_Track.old); // getting the previous
-                        console.log(`new data being saved${New}`) // printing out to the console to see
-
-                        data_Track.new = New; // keeping track of the new data
-                        Data.push(New); // add to array to show to screen
-                        new_html_show.html(New);
-
-                    }else{
-                        console.log("neither even or odd which is weird\nbefore setting new value");
-                    }
-
-                } else { // if a new value is set
-
-                    if (isEven(data_Track.new) == true) {
-                        console.log(`new data after setting the new: ${data_Track.new}`) // printing out to the console to see
-
-                        var Newer = even(data_Track.new); // getting the previous
-                        data_Track.old = data_Track.new; // replacing the old 
-                        old_html_show.html(data_Track.old); // printing out the old on a DOM 
-                        data_Track.new = Newer; // replacing the new
-                        Data.push(Newer); // adding to array to show to screen
-                        new_html_show.html(Newer); // printing out the new on a DOM 
-
-                    } else if (isOdd(data_Track.new) == true) {
-                        console.log(data_Track.new) // printing out to the console to see
-
-                        var Newer = odd(data_Track.new); // getting the previous
-                        data_Track.old = data_Track.new; // replacing the old 
-                        old_html_show.html(data_Track.old); // printing out the old on a DOM 
-                        data_Track.new = Newer; // replacing the new
-                        Data.push(Newer); // adding to array to show to screen
-                        new_html_show.html(Newer); // printing out the new on a DOM 
-                    }else{
-                        console.log("neither even or odd which is weird\nafter setting new value");
-                    }
+                } else {
+                    numChosen_html_show.html("Number neither even nor odd\nOdd bug but it doesn't seem to show");
                 }
+
             }
 
-        } else {
-            alert(`${num_chosen} is not an integer`);
-            refresh(); // so the input is cleared
+
         }
 
-    }catch(err){
-        console.log(`${err}`)
+    } catch (err) {
+        console.log(`${err}`);
     }
 }

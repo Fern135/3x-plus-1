@@ -2,61 +2,76 @@
 
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>3x + 1 visualized</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>3x + 1 visualized</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <region>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <region>
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-        <!-- jQuery library -->
-        <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <!-- jQuery library -->
+            <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        <!-- Popper JS -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <!-- Popper JS -->
+            <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-        <!-- Latest compiled JavaScript -->
-        <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <!-- Latest compiled JavaScript -->
+            <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <script async src="https://kit.fontawesome.com/805fc64e96.js" crossorigin="anonymous"></script>
-    </region>
-    <style>
-        body {
-            background-color: lightgray;
-        }
+            <script async src="https://kit.fontawesome.com/805fc64e96.js" crossorigin="anonymous"></script>
+        </region>
+        <style>
+            body {
+                background-color: lightgray;
+            }
 
-        #number-choose {
-            text-align: center;
-        }
-    </style>
-</head>
+            #number-choose {
+                text-align: center;
+            }
+        </style>
+    </head>
 
-<body>
+    <body>
 
-    <div class="container">
-        <!-- width="400" height="400" -->
-        <canvas id="myChart"></canvas>
-        <!-- <input type="number" name="number-choose" id="number-choose" class="btn-block" placeholder="Choose a positive number" required /> -->
-        <button id="generate-main" class="btn btn-outline-success btn-block" onclick="running()">Generate</button>
+        <div class="container">
+            <!-- width="400" height="400" -->
+            <canvas id="myChart"></canvas>
+            <input type="number" name="number-choose" id="number-choose" class="btn-block"
+                placeholder="Choose a positive number" required />
+            <button id="generate-main" class="btn btn-outline-success btn-block" onclick="running()">Submit
+                Number</button>
 
-        <div class="row">
-            <div class="col-sm">
-                <p>old: <span id="old"></span></p>
-                <p>new: <span id="new"></span></p>
+            <div class="row">
+                <div class="col-sm">
+                    <p> # generated <span id="num-chosen"></span></p>
+                </div>
+                <div class="col-sm">
+                    <p>old: <span id="old"></span></p>
+                </div>
+
+                <div class="col-sm">
+                    <p>new: <span id="new"></span></p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <button class="btn btn-outline-primary" onclick="refresh()">Reload</button>
+        <button class="btn btn-outline-primary" onclick="refresh()">Reload</button>
 
 
-    <!-- chart -->
-    <script async src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
-    <script async src="./bin/main.js"></script>
-</body>
+        <!-- chart -->
+        <script async src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+        <script async src="./bin/main.js"></script>
+        <script>
+            // window.onload = function () {
+            //     const element = document.createElement("script");
+            //     element.src = "./bin/main.js";
+            //     document.body.appendChild(element);
+            // };
+        </script>
+    </body>
 
 </html>
