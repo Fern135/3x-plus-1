@@ -115,9 +115,9 @@ function running() {
             // random(500)
         ); // getting the value
 
-        var new_html_show = $("#new");
-        var old_html_show = $("#old");
-        var numChosen_html_show = $("#num-chosen");
+        var new_html_show = $("#new"); // showing the new number after applying the 2 rules
+        var old_html_show = $("#old"); // showing the old number
+        var numChosen_html_show = $("#num-chosen"); // showing the number chosen
 
         const final = 1; // set how many times to run 
 
@@ -143,7 +143,7 @@ function running() {
                 // if the number chosen is true 
                 if (iseven == true) {
                     old_html_show.html(data_Track.old); // showing the old number
-                    console.log(`number chosen before a new number is saved ${data_Track.old}`);
+                    console.log(`number chosen before a new number is saved ${data_Track.old}`); // console logging to keep track of easier
                     var NEW = even(data_Track.old); // dividing by 2
                     data_Track.new = NEW; // keeping track of the new num
 
@@ -154,7 +154,7 @@ function running() {
                     // if the number chosen is odd
                 } else if (isodd == true) {
                     old_html_show.html(data_Track.old);
-                    console.log(`number chosen before a new number is saved ${data_Track.old}`);
+                    console.log(`number chosen before a new number is saved ${data_Track.old}`); // console logging to keep track of easier
                     var new_odd = odd(data_Track.old); // dividing by 2
                     data_Track.new = new_odd;
 
@@ -172,24 +172,24 @@ function running() {
                 // if the number chosen is true 
                 if (iseven == true) {
                     new_html_show.html(data_Track.new); // showing the old number
-                    console.log(`after a new number is saved ${data_Track.new}`);
+                    console.log(`after a new number is saved ${data_Track.new}`); // console logging to keep track of easier
                     var NEW = even(data_Track.new); // dividing by 2
                     data_Track.new = NEW; // keeping track of the new num
 
                     new_html_show.html(NEW); // showing the number being saved
-                    console.log(`after a new number is saved ${data_Track.new}`);
+                    console.log(`after a new number is saved ${data_Track.new}`); // console logging to keep track of easier
                     Data.push(NEW);
 
 
                     // if the number chosen is odd
                 } else if (isodd == true) {
                     new_html_show.html(data_Track.new);
-                    console.log(`after a new number is saved ${data_Track.new}`);
+                    console.log(`after a new number is saved ${data_Track.new}`); // console logging to keep track of easier
                     var new_odd = odd(data_Track.new); // dividing by 2
                     data_Track.new = new_odd;
 
                     new_html_show.html(new_odd);
-                    console.log(`after a new number is saved ${data_Track.new}`);
+                    console.log(`after a new number is saved ${data_Track.new}`); // console logging to keep track of easier
                     Data.push(new_odd);
 
 
