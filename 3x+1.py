@@ -20,6 +20,46 @@
 """
 import matplotlib.pyplot as plt
 import numpy as np
+from os import system, name  # clear the console
+import time
+import datetime
+
+
+def get_time():  # get full 12 hour time
+    x = datetime.datetime.now()
+
+    # assigning the right time to the variable
+    hour = x.strftime("%I")  # hour
+    min = x.strftime("%M")  # minute
+    ampm = x.strftime("%p")  # am / pm
+
+    return f"{hour} : {min}  {ampm}"
+
+
+def get_Date():  # get full date
+    return datetime.datetime.now().strftime("%x")
+
+
+def errorLog(msg):
+    MSG = f"""
+        __________error__________
+        {msg}
+        _________________________
+        {get_Date()}
+        _________________________
+        {get_time()}
+        _________________________
+        
+    """
+    f = open("error.txt", "a")  # append
+    f.write(msg)
+    f.close()
+
+
+def log(data):
+    f = open("log.txt", "a")  # read
+    f.write(f"{data}\n")
+    f.close()
 
 
 def isEven(num):
@@ -27,3 +67,89 @@ def isEven(num):
         return True
     else:
         return False
+
+
+def isOdd(num):
+    if num % 3 == 0:
+        return True
+    else:
+        return False
+
+
+def isFloat(num):
+    check_float = isinstance(num, float)
+
+    if check_float == True:
+        return True
+    else:
+        return False
+
+
+def isPositiveInt(num):
+    num = str(num).strip()  # stipping the blank edges
+
+    if num.isdigit() == True and num.startswith("-") == False:
+        return True
+    else:
+        return False
+
+
+def cls():  # clear the console
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
+
+def show(data=[]):
+
+    # xPoints = np.array([data])  # horizontal numbers
+    yPoints = np.array([data])  # vertical numbers
+
+    plt.plot(yPoints)
+    plt.show()
+
+
+def run():
+    """
+        1. get positive integer
+        2. check if it's even or odd
+        3. if odd num * 3 + 1, if even / 2 
+        4. store in array. 
+        5. replace the original input with the new number 
+        6. repeat
+    """
+    try:
+        userInput = input("please enter a positive integer\t")
+        userInput = int(userInput)  # turns input into int
+
+        if isPositiveInt(userInput) == True:
+            num_plot = []  # keeping track of all the numbers
+            iseven = isEven(userInput)  # checking if the number is even
+            isodd = isOdd(userInput)  # checking if the number is odd
+
+            while userInput <= 4:
+                try:
+                    # if the number is odd
+                    if isFloat(userInput) == True:
+                        continue
+
+                except Exception as e:
+                    errorLog(str(e))
+
+            show(data=num_plot)
+        else:
+            print("not a positive integer")
+
+    except Exception as e:
+        errorLog(str(e))
+        print(str(e))
+
+
+if __name__ == '__main__':
+    while True:  # so it's always running
+        cls()  # clear the console
+        run()
