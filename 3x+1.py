@@ -57,8 +57,11 @@ def errorLog(msg):
 
 
 def log(data):
+    info = f"""
+        \n\n{data}\n\n
+    """
     f = open("log.txt", "a")  # read
-    f.write(f"{data}\n")
+    f.write(info)
     f.close()
 
 
@@ -106,20 +109,25 @@ def cls():  # clear the console
 
 def show(data=[]):
 
-    # xPoints = np.array([data])  # horizontal numbers
-    yPoints = np.array([data])  # vertical numbers
+    for x in data:
+        # xPoints = np.array([data])  # horizontal numbers
+        # yPoints = np.array([data[x]])  # vertical numbers
 
-    plt.plot(yPoints)
+        plt.plot(np.array(
+            [
+                data[x]
+            ]
+        ))
     plt.show()
 
 
 def run():
     """
-        1. get positive integer
-        2. check if it's even or odd
-        3. if odd num * 3 + 1, if even / 2 
-        4. store in array. 
-        5. replace the original input with the new number 
+        1. get positive integer. <====================================== done
+        2. check if it's even or odd <================================== done
+        3. if odd num * 3 + 1, if even / 2 <============================ done
+        4. store in array. <============================================ done
+        5. replace the original input with the new number <============= done
         6. repeat
     """
     try:
@@ -135,10 +143,26 @@ def run():
                 try:
                     # if the number is odd
                     if isFloat(userInput) == True:
+                        print("is float")
                         continue
+                    else:
+                        if iseven:
+                            print("is even\ndividing by 2")
+                            userInput = userInput / 2
+                            num_plot.append(userInput)  # store in array
+                            continue  # in case it no want to repeat
+                        elif isodd:
+                            print("is odd\nMultiplying 3 and adding 1")
+                            userInput = userInput * 3 + 1
+                            num_plot.append(userInput)  # store in array
+                            continue  # in case it no want to repeat
+
+                        if userInput <= 4:
+                            break
 
                 except Exception as e:
-                    errorLog(str(e))
+                    errorLog(
+                        f"error inside the isEven and isOdd loop {str(e)}")
 
             show(data=num_plot)
         else:

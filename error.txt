@@ -1,1 +1,1 @@
-local variable 'xPoints' referenced before assignment
+local variable 'yPoints' referenced before assignment
