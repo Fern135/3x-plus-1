@@ -41,28 +41,34 @@ def get_Date():  # get full date
 
 
 def errorLog(msg):
-    MSG = f"""
-        __________error__________
+    space = "_" * len(msg)
+
+    message = f"""
+        {space}error{space}\n
         {msg}
-        _________________________
-        {get_Date()}
-        _________________________
-        {get_time()}
-        _________________________
-        
+        {space}\n
+        {get_Date()}\n
+        {space}\n
+        {get_time()}\n
+        {space}\n
+
     """
     f = open("error.txt", "a")  # append
-    f.write(msg)
+    f.write(message)
     f.close()
 
 
 def log(data):
+    space = "_" * len(data)
     info = f"""
-        \n\n{data}\n\n
+        {space}\n
+        {data}\n
     """
-    f = open("log.txt", "a")  # read
+    f = open("log.txt", "a")
     f.write(info)
     f.close()
+
+# region is even odd and other functionalities
 
 
 def isEven(num):
@@ -106,6 +112,8 @@ def cls():  # clear the console
     else:
         _ = system('clear')
 
+# endregion
+
 
 def show(data=[]):
 
@@ -122,6 +130,7 @@ def show(data=[]):
 
 
 def run():
+    start = time.time()
     """
         1. get positive integer. <====================================== done
         2. check if it's even or odd <================================== done
@@ -139,7 +148,7 @@ def run():
             iseven = isEven(userInput)  # checking if the number is even
             isodd = isOdd(userInput)  # checking if the number is odd
 
-            while userInput <= 4:
+            while userInput > 4:
                 try:
                     # if the number is odd
                     if isFloat(userInput) == True:
@@ -150,12 +159,12 @@ def run():
                             print("is even\ndividing by 2")
                             userInput = userInput / 2
                             num_plot.append(userInput)  # store in array
-                            continue  # in case it no want to repeat
+                            # continue  # in case it no want to repeat
                         elif isodd:
                             print("is odd\nMultiplying 3 and adding 1")
                             userInput = userInput * 3 + 1
                             num_plot.append(userInput)  # store in array
-                            continue  # in case it no want to repeat
+                            # continue  # in case it no want to repeat
 
                         if userInput <= 4:
                             break
@@ -164,7 +173,14 @@ def run():
                     errorLog(
                         f"error inside the isEven and isOdd loop {str(e)}")
 
+            # show in a diagram
             show(data=num_plot)
+
+            # getting the end time
+            end = time.time()
+
+            # loging the time it took to run
+            log(str(end - start))
         else:
             print("not a positive integer")
 
